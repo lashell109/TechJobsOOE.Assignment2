@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace TechJobsOO
 {
     public class Job
@@ -31,26 +33,54 @@ namespace TechJobsOO
             JobCoreCompetency = jobCoreCompetency;
         }
 
-        // TODO: Generate Equals() and GetHashCode() methods.
-        public Job(string value) : this()
+        public override string ToString()
         {
-            Value = value;
+            if (Name == "")
+            {
+                Name = "Data not available";
+            }
+
+            if (EmployerName.Value == "" || EmployerName.Value == null)
+            {
+                EmployerName.Value = "Data not available";
+            }
+
+            if (EmployerLocation.Value == "" || EmployerLocation.Value == null)
+            {
+                EmployerLocation.Value = "Data not available";
+            }
+
+            if (JobType.Value == "" || JobType.Value == null)
+            {
+                JobType.Value = "Data not available";
+            }
+
+            if (JobCoreCompetency.Value == "" || JobCoreCompetency.Value == null)
+            {
+                JobCoreCompetency.Value = "Data not available";
+            }
+
+            string output = $"ID: {Id} \n Name:{Name} \n Employer:{EmployerName.Value} \n " +
+                $"Location:{EmployerLocation.Value} \n PositionType: {JobType.Value} \n " +
+                $"CoreCompentency: {JobCoreCompetency.Value}";
+
+            return output;
         }
 
         public override bool Equals(object obj)
         {
             return obj is Job job &&
-                   Id == job.Id;
+                Id == job.Id &&
+                Name == job.Name &&
+                EqualityComparer<Employer>.Default.Equals(EmployerName, job.EmployerName) &&
+                EqualityComparer<Location>.Default.Equals(EmployerLocation, job.EmployerLocation) &&
+                EqualityComparer<PositionType>.Default.Equals(JobType, job.JobType) &&
+                EqualityComparer<CoreCompetency>.Default.Equals(JobCoreCompetency, job.JobCoreCompetency);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id);
-        }
-
-        public override string ToString()
-        {
-            return Value;
+            return HashCode.Combine(Id, Name, EmployerName, EmployerLocation, JobType, JobCoreCompetency);
         }
     }
 }

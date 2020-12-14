@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using TechJobsOO;
 
 namespace TechJobsTests
@@ -48,8 +49,10 @@ namespace TechJobsTests
             Job objectFour = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"),
                new CoreCompetency("Persistence"));
             {
-                string output = " ";
-                Assert.AreEqual(output, objectFour.ToString());
+                string outputExpected = $"ID: {objectFour.Id} \n Name: {objectFour.Name} \n  " +
+                    $"Employer: {objectFour.EmployerName} \n Location: {objectFour.EmployerLocation} \n" +
+                    $"PositionType: {objectFour.JobType} \n CoreCompentency: {objectFour.JobCoreCompetency}";
+                Assert.AreEqual(outputExpected, objectFour.ToString());
             }
         }
     }
